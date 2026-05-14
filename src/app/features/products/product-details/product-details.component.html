@@ -1,0 +1,115 @@
+<div class="product-detail-page">
+  <div class="back-link-wrapper">
+    <a
+      routerLink="/products"
+      class="back-link"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      <span>Back to shop</span>
+    </a>
+  </div>
+
+  @if (loading()) {
+    <div class="loader-wrapper">
+      <app-loader label="Loading product..." />
+    </div>
+  } @else {
+    @if (!product()) {
+      <div class="empty-wrapper">
+        <app-empty-state
+          title="Product not found"
+          description="That product may have been removed."
+          actionLabel="Go to products"
+          actionLink="/products"
+        />
+      </div>
+    } @else {
+      <div class="product-detail-layout">
+        <div class="product-gallery">
+          <div class="gallery-image">
+            <img
+              class="main-image"
+              [src]="product()!.imageUrl"
+              [alt]="product()!.title"
+            />
+            @if (product()!.stock <= 0) {
+              <div class="sold-out-badge">Sold Out</div>
+            }
+          </div>
+        </div>
+
+        <section class="product-info">
+          <div class="info-header">
+            <div class="header-left">
+              <span class="category-tag">{{ product()!.category }}</span>
+              <h1 class="product-title">{{ product()!.title }}</h1>
+            </div>
+            <div class="header-right">
+              <span class="product-price">{{ product()!.priceCents | currencyFormat }}</span>
+            </div>
+          </div>
+
+          <div class="info-meta">
+            <div class="rating-block">
+              <div class="stars">
+                @for (star of stars; track star) {
+                  <svg class="star-icon" [class.filled]="star <= product()!.rating" width="16" height="16" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  </svg>
+                }
+              </div>
+              <span class="rating-value">{{ product()!.rating.toFixed(1) }}</span>
+              <span class="review-count">({{ product()!.reviewCount }} reviews)</span>
+            </div>
+            <div class="stock-block">
+              @if (product()!.stock > 0) {
+                <span class="stock-badge in-stock">
+                  <span class="stock-dot"></span>
+                  In stock ({{ product()!.stock }} available)
+                </span>
+              } @else {
+                <span class="stock-badge out-of-stock">
+                  <span class="stock-dot"></span>
+                  Out of stock
+                </span>
+              }
+            </div>
+          </div>
+
+          <div class="info-description">
+            <h3 class="section-label">Description</h3>
+            <p class="description-text">{{ product()!.description }}</p>
+          </div>
+
+          <div class="info-actions">
+            <button
+              type="button"
+              class="add-to-cart-btn"
+              (click)="addToCart()"
+              [disabled]="product()!.stock <= 0"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <path d="M16 10a4 4 0 0 1-8 0"/>
+              </svg>
+              <span>Add to Cart</span>
+            </button>
+            <a
+              routerLink="/cart"
+              class="view-cart-btn"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M9 22a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM20 22a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+              </svg>
+              <span>View Cart</span>
+            </a>
+          </div>
+        </section>
+      </div>
+    }
+  }
+</div>

@@ -1,0 +1,63 @@
+<article class="product-card">
+  <a
+    class="card-link"
+    [routerLink]="['/products', product().id]"
+  >
+    <div class="image-wrapper">
+      <img
+        class="product-image"
+        [src]="product().imageUrl"
+        [alt]="product().title"
+        loading="lazy"
+      />
+      @if (!inStock()) {
+        <div class="out-of-stock-badge">Out of stock</div>
+      }
+      <div class="card-overlay">
+        <span class="view-label">View Details</span>
+      </div>
+    </div>
+  </a>
+
+  <div class="card-content">
+    <div class="card-header">
+      <div class="title-group">
+        <a
+          class="product-title"
+          [routerLink]="['/products', product().id]"
+        >{{ product().title }}</a>
+        <p class="product-category">{{ product().category }}</p>
+      </div>
+      <div class="price-group">
+        <span class="product-price">{{ product().priceCents | currencyFormat }}</span>
+      </div>
+    </div>
+
+    <p class="product-description">{{ product().description | truncate: 80 }}</p>
+
+    <div class="card-footer">
+      <div class="rating-group">
+        <div class="stars">
+          @for (star of stars; track star) {
+            <svg class="star-icon" [class.filled]="star <= product().rating" width="14" height="14" viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          }
+        </div>
+        <span class="rating-text">{{ product().rating.toFixed(1) }}</span>
+        <span class="review-count">({{ product().reviewCount }})</span>
+      </div>
+      <button
+        type="button"
+        class="add-btn"
+        (click)="addToCart()"
+        [disabled]="!inStock()"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 5v14M5 12h14"/>
+        </svg>
+        <span>Add</span>
+      </button>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,39 @@
+<div class="product-list-page">
+  <div class="product-list-layout">
+    <aside class="filters-sidebar">
+      <app-filters />
+    </aside>
+
+    <section class="products-section">
+      <div class="section-header">
+        <div class="header-content">
+          <h1 class="page-title">Shop</h1>
+          <p class="product-count">{{ totalCount() }} items</p>
+        </div>
+      </div>
+
+      @if (loading()) {
+        <div class="loader-wrapper">
+          <app-loader label="Loading products..." />
+        </div>
+      } @else {
+        @if (products().length === 0) {
+          <div class="empty-state-wrapper">
+            <app-empty-state
+              title="No matching products"
+              description="Try adjusting your search or filters."
+            />
+          </div>
+        } @else {
+          <div class="products-grid">
+            @for (p of products(); track p.id; let i = $index) {
+              <div class="product-item" [style.animation-delay]="(i * 50) + 'ms'">
+                <app-product-card [product]="p" />
+              </div>
+            }
+          </div>
+        }
+      }
+    </section>
+  </div>
+</div>

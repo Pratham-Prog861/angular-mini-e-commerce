@@ -1,0 +1,137 @@
+.cart-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 40px 60px;
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.page-title {
+  font-family: var(--font-serif);
+  font-size: 36px;
+  font-weight: 500;
+  color: var(--color-charcoal);
+  letter-spacing: -0.02em;
+}
+
+.page-subtitle {
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+.continue-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-charcoal);
+  text-decoration: none;
+  border: 1.5px solid var(--color-border-dark);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-base);
+}
+
+.continue-link:hover {
+  background: var(--color-cream-dark);
+  border-color: var(--color-charcoal);
+}
+
+.empty-cart-wrapper {
+  padding: 80px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.empty-cart {
+  text-align: center;
+  max-width: 400px;
+}
+
+.empty-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+  color: var(--color-border-dark);
+}
+
+.empty-title {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--color-charcoal);
+  margin-bottom: 8px;
+}
+
+.empty-description {
+  font-size: 15px;
+  color: var(--color-muted);
+  margin-bottom: 28px;
+}
+
+.browse-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 28px;
+  background: var(--color-charcoal);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-base);
+}
+
+.browse-btn:hover {
+  background: var(--color-terracotta);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.cart-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 40px;
+  align-items: start;
+}
+
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cart-item {
+  animation: slideUp 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+@media (max-width: 900px) {
+  .cart-page {
+    padding: 24px 16px 40px;
+  }
+
+  .cart-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .cart-layout {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,52 @@
+<header class="navbar">
+  <div class="navbar-inner">
+    <a class="logo" routerLink="/products">
+      <span class="logo-mark">AS</span>
+      <span class="logo-text">Angular Shop</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a
+        routerLink="/products"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-link"
+      >
+        <span>Shop</span>
+      </a>
+      <a
+        routerLink="/cart"
+        routerLinkActive="active"
+        class="nav-link cart-link"
+      >
+        <span>Cart</span>
+        @if (cartCount() > 0) {
+          <span class="cart-badge">{{ cartCount() }}</span>
+        }
+      </a>
+    </nav>
+
+    <div class="navbar-actions">
+      <app-search-bar [value]="searchQuery()" (valueChange)="onSearch($event)" />
+      @if (hasSearch()) {
+        <button
+          type="button"
+          class="clear-btn"
+          (click)="clearSearch()"
+        >
+          Clear
+        </button>
+      }
+      <a routerLink="/cart" class="cart-icon-link" aria-label="Shopping cart">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        @if (cartCount() > 0) {
+          <span class="cart-count">{{ cartCount() }}</span>
+        }
+      </a>
+    </div>
+  </div>
+</header>
